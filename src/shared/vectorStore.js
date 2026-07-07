@@ -52,6 +52,10 @@ export function clearStore() {
   saveStore([]);
 }
 
+export function getAllRecords() {
+  return loadStore();
+}
+
 export function storeSize() {
   return loadStore().length;
 }
