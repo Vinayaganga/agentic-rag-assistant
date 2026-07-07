@@ -75,11 +75,13 @@ projects.
 ```
 src/
   agent/
-    searchTool.js   Tool schema for Claude + execute(query, topK), wraps retrieve()
-    agentLoop.js    the tool-use loop: calls Claude, executes search_documents
-                    calls as Claude requests them, loops until Claude stops
-                    calling the tool (or a 5-iteration cap), returns
-                    { answer, sources, trace }
+    searchTool.js        Tool schema for Claude + execute(query, topK), wraps retrieve()
+    listDocumentsTool.js Tool schema + execute() listing ingested docs with chunk counts —
+                         lets the agent answer "what's available" without an awkward search
+    agentLoop.js         the tool-use loop: calls Claude with both tools, dispatches each
+                         tool_use block to the right executor by name, loops until Claude
+                         stops calling tools (or a 5-iteration cap), returns
+                         { answer, sources, trace }
   ingestion/        fixed-size chunking + pipeline — copied from rag-microservice
   retrieval/        query embedding + vector search — copied from rag-microservice
   embedding/        Voyage AI client — copied from rag-microservice
@@ -88,8 +90,6 @@ src/
 
 ## Next steps / upgrade paths
 
-- **More tools**: give the agent a `list_documents` tool so it can decide to
-  read a whole doc instead of only ever searching by similarity.
 - **Parallel tool calls**: Claude can request multiple `search_documents`
   calls in a single turn (the loop already handles this — see the
   `toolUseBlocks` loop in `agentLoop.js`) but the sample queries here mostly
