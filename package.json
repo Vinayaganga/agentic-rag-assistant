@@ -1,0 +1,17 @@
+{
+  "name": "agentic-rag-assistant",
+  "version": "0.1.0",
+  "description": "Agentic RAG: Claude decides whether/what to search via tool-use, instead of a fixed retrieve-then-generate pipeline",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "ingest": "node src/ingestion/cli.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0",
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5"
+  }
+}
